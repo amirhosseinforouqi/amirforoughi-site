@@ -1,0 +1,166 @@
+(function () {
+  "use strict";
+
+  /* Form delivery: paste your Web3Forms access key between the quotes.
+     While empty, forms show success without sending (demo mode). */
+  var WEB3FORMS_KEY = "";
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var isRTL = document.documentElement.dir === "rtl";
+
+  function sendLead(form, extra, onDone) {
+    if (!WEB3FORMS_KEY) { onDone(true); return; }
+    var data = { access_key: WEB3FORMS_KEY, from_name: "Foroughi Mortgages website", page: window.location.pathname };
+    ["name", "phone", "email", "service", "calltime"].forEach(function (k) {
+      var el = form.querySelector('[name="' + k + '"]:checked, [name="' + k + '"]:not([type=radio])');
+      if (el) data[k] = el.value;
+    });
+    Object.assign(data, extra || {});
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(data),
+    }).then(function (r) { onDone(r.ok); }).catch(function () { onDone(false); });
+  }
+
+  /* ---- menu overlays (data-open-menu holds the overlay id; empty = menuOverlay) ---- */
+  var menus = document.querySelectorAll("[data-menu-overlay]");
+  if (menus.length) {
+    var closeMenus = function () {
+      Array.prototype.forEach.call(menus, function (m) { m.classList.add("hidden"); });
+      document.body.style.overflow = "";
+    };
+    Array.prototype.forEach.call(document.querySelectorAll("[data-open-menu]"), function (b) {
+      b.addEventListener("click", function () {
+        var target = document.getElementById(b.getAttribute("data-open-menu") || "menuOverlay");
+        if (!target) return;
+        closeMenus();
+        target.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-close-menu]"), function (b) { b.addEventListener("click", closeMenus); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenus(); });
+  }
+
+  /* ---- sticky top chrome: condense once scrolled, and publish its height
+         so the drop-down menus can sit directly beneath it ---- */
+  var siteTop = document.querySelector(".site-top");
+  if (siteTop) {
+    var syncHeight = function () {
+      document.documentElement.style.setProperty("--site-top-h", siteTop.offsetHeight + "px");
+    };
+    var onScroll = function () {
+      siteTop.classList.toggle("is-stuck", window.scrollY > 8);
+      syncHeight();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", syncHeight);
+    /* the condense animation changes the height after the scroll event */
+    siteTop.addEventListener("transitionend", syncHeight);
+    onScroll();
+  }
+
+  /* ---- callback panel ---- */
+  var panel = document.getElementById("panel");
+  var overlay = document.getElementById("panelOverlay");
+  var lastFocus = null;
+  var shift = isRTL ? "-translate-x-full" : "translate-x-full";
+
+  function openPanel() {
+    if (!panel) return;
+    lastFocus = document.activeElement;
+    overlay.classList.remove("pointer-events-none", "opacity-0");
+    panel.classList.remove(shift);
+    var f = panel.querySelector("form input");
+    window.setTimeout(function () { if (f) f.focus(); }, reduceMotion ? 0 : 380);
+    document.addEventListener("keydown", onEsc);
+  }
+  function closePanel() {
+    if (!panel) return;
+    overlay.classList.add("pointer-events-none", "opacity-0");
+    panel.classList.add(shift);
+    document.removeEventListener("keydown", onEsc);
+    if (lastFocus) lastFocus.focus();
+  }
+  function onEsc(e) { if (e.key === "Escape") closePanel(); }
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-open-panel]"), function (b) { b.addEventListener("click", openPanel); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-close-panel]"), function (b) { b.addEventListener("click", closePanel); });
+  if (overlay) overlay.addEventListener("click", closePanel);
+
+  Array.prototype.forEach.call(document.querySelectorAll("form[data-callback]"), function (cbForm) {
+    cbForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var hp = cbForm.querySelector('input[name="company"]');
+      if (hp && hp.value) return; /* honeypot */
+      if (!cbForm.checkValidity()) { cbForm.reportValidity(); return; }
+      var btn = cbForm.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      sendLead(cbForm, { subject: "Callback request — " + (document.body.dataset.service || "website") }, function (ok) {
+        btn.disabled = false;
+        if (!ok) { alert("That didn't go through — please call (416) 602-7093."); return; }
+        cbForm.classList.add("hidden");
+        var s = cbForm.nextElementSibling;
+        if (s && s.hasAttribute("data-form-success")) {
+          s.classList.remove("hidden");
+          var h = s.querySelector("h3");
+          if (h) { h.setAttribute("tabindex", "-1"); h.focus(); }
+        }
+      });
+    });
+  });
+
+  /* ---- newsletter (footer) ---- */
+  var nl = document.querySelector("form[data-newsletter]");
+  if (nl) {
+    nl.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!nl.checkValidity()) { nl.reportValidity(); return; }
+      sendLead(nl, { subject: "Newsletter signup", email: nl.querySelector("input").value }, function () {
+        nl.classList.add("hidden");
+        document.querySelector("[data-newsletter-ok]").classList.remove("hidden");
+      });
+    });
+  }
+
+  /* ---- card carousel ---- */
+  Array.prototype.forEach.call(document.querySelectorAll("[data-carousel]"), function (root) {
+    var track = root.querySelector(".car-track");
+    var cards = track.children;
+    var prev = root.querySelector("[data-car-prev]");
+    var next = root.querySelector("[data-car-next]");
+    var bar = root.querySelector("[data-car-bar]");
+    var index = 0;
+
+    function visible() { return window.matchMedia("(min-width: 768px)").matches ? 3 : 1; }
+    function maxIndex() { return Math.max(0, cards.length - visible()); }
+    function render() {
+      var step = cards[0].getBoundingClientRect().width + 24;
+      var x = index * step * (isRTL ? 1 : -1);
+      track.style.transform = "translateX(" + x + "px)";
+      if (bar) bar.style.width = Math.round(((index + visible()) / cards.length) * 100) + "%";
+      prev.style.opacity = index === 0 ? 0.3 : 1;
+      next.style.opacity = index >= maxIndex() ? 0.3 : 1;
+    }
+    prev.addEventListener("click", function () { index = Math.max(0, index - 1); render(); });
+    next.addEventListener("click", function () { index = Math.min(maxIndex(), index + 1); render(); });
+    window.addEventListener("resize", function () { index = Math.min(index, maxIndex()); render(); });
+    render();
+  });
+
+  /* ---- ambient video ---- */
+  var bands = document.querySelectorAll(".band-video");
+  if (bands.length && !reduceMotion && window.matchMedia("(min-width: 768px)").matches) {
+    var io = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { var p = en.target.play(); if (p) p.catch(function () {}); }
+        else en.target.pause();
+      });
+    }, { threshold: 0.25 }) : null;
+    Array.prototype.forEach.call(bands, function (v) {
+      if (io) io.observe(v);
+      else { var p = v.play(); if (p) p.catch(function () {}); }
+    });
+  }
+})();
