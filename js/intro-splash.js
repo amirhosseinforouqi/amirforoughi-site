@@ -69,6 +69,14 @@
     if (seqTl) seqTl.pause();
   }
 
+  /* the hold must last at least one full pass through the slides, or the
+     curtain cuts the sequence short and the last frames never show. Scale it
+     to slides.length so any count keeps working (base case: 6 slides -> 1.8s,
+     matching the original fixed hold). */
+  var loopDuration = slides.length > 1 ? (slides.length + 1) * SEQ_STEP : 0.6;
+  var curtainStart = loopDuration + 0.4;
+  var navStart = curtainStart + 0.8;
+
   var tl = gsap.timeline({
     onComplete: function () {
       if (seqTl) seqTl.kill();
@@ -82,10 +90,10 @@
 
   /* 2. curtain pull — the whole overlay (frozen media + locked wordmark)
         slides up together, exactly as before */
-  tl.to(splash, { y: "-100svh", duration: 1.2, ease: "power1.inOut", onStart: stopSeq }, 1.8);
+  tl.to(splash, { y: "-100svh", duration: 1.2, ease: "power1.inOut", onStart: stopSeq }, curtainStart);
 
   /* 3. fixed nav fades in near the end of the exit */
-  tl.to(nav, { opacity: 1, duration: 0.6, ease: "power1.out" }, 2.6);
+  tl.to(nav, { opacity: 1, duration: 0.6, ease: "power1.out" }, navStart);
 
   /* failsafe: if the timeline hasn't finished ~9s after load (background
      tab throttling, or anything unexpected), jump it to the end so the
