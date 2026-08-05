@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=15">
+  <link rel="stylesheet" href="css/main.css?v=16">
   <script>
   /* Splash gate — runs before first paint. Skips the intro when it already
      played this session, or when the visit arrives from an ad/UTM link. */
@@ -61,7 +61,7 @@
 
   <!-- one fixed background clip; loops on its own, independent of scroll -->
   <div class="hero-media" aria-hidden="true">
-    <video id="scrubVideo" class="bgv-scrub" muted playsinline autoplay loop preload="auto" poster="assets/hero-poster.jpg">
+    <video id="scrubVideo" class="bgv-scrub" muted playsinline autoplay loop preload="auto" poster="assets/hero-poster.jpg?v=2">
       <source src="assets/go-train.webm" type="video/webm">
     </video>
     <div class="scrim"></div>
@@ -90,9 +90,16 @@
         </div>
       </li>
       <li><a href="tools.html">Tools</a></li>
-      <li><a href="blog/index.html">Blog</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li class="has-sub">
+        <a role="button" tabindex="0" aria-haspopup="true">About</a>
+        <div class="sub" role="menu" aria-label="About and more">
+          <div class="sub-inner sub-inner-flat">
+            <a role="menuitem" href="about.html">About</a>
+            <a role="menuitem" href="blog/index.html">Blog</a>
+            <a role="menuitem" href="contact.html">Contact</a>
+          </div>
+        </div>
+      </li>
     </ul>
   </nav>
 
@@ -177,7 +184,7 @@
     </div>
   </aside>
 
-  <script src="js/main.js?v=7"></script>
+  <script src="js/main.js?v=8"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/home-scroll.js?v=16"></script>
   <script src="js/intro-splash.js?v=2"></script>

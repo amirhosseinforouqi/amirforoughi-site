@@ -123,7 +123,7 @@ button {
 .hero-media {
   position: fixed;
   inset: 0;
-  background: var(--tile-dark) url("../assets/hero-poster.jpg") center / cover no-repeat;
+  background: var(--tile-dark) url("../assets/hero-poster.jpg?v=2") center / cover no-repeat;
 }
 
 .hero-media video {
@@ -318,12 +318,13 @@ button {
   pointer-events: none;
 }
 
-/* Mortgages is a hover trigger only — it has no href and never navigates */
+/* Mortgages and About are trigger-only — neither carries an href, so neither
+   navigates; their pages are reached from inside the panel */
 .rail .has-sub > a {
   cursor: default;
 }
 
-/* Mortgages hover dropdown — panel drops below the top-center pill */
+/* dropdown panel — drops below the top-center pill */
 .rail .sub {
   position: absolute;
   top: 100%;
@@ -734,14 +735,14 @@ button[type="submit"]:disabled {
     --cy: 30%;
   }
 
-  /* Phones keep the desktop pill rail rather than a hamburger overlay, just
-     compressed enough that all five items fit a 360px viewport. Mortgages
-     opens on tap via :focus-within, the same rule that drives hover. */
+  /* Phones keep the desktop pill rail rather than a hamburger overlay. Three
+     top-level items leave room for full-size tap targets at a 360px viewport.
+     Mortgages and About open on tap via :focus-within, the rule that also
+     drives hover. */
   .rail {
     top: 14px;
-    font-size: 12px;
-    letter-spacing: -0.1px;
-    padding: 4px 5px;
+    font-size: 14px;
+    padding: 5px 6px;
     max-width: calc(100vw - 20px);
   }
 
@@ -750,7 +751,7 @@ button[type="submit"]:disabled {
   }
 
   .rail a {
-    padding: 6px 9px;
+    padding: 11px 15px;
   }
 
   /* The dropdown spans the viewport under the pill instead of hanging off the
