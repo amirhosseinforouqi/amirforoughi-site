@@ -734,45 +734,61 @@ button[type="submit"]:disabled {
     --cy: 30%;
   }
 
+  /* Phones keep the desktop pill rail rather than a hamburger overlay, just
+     compressed enough that all five items fit a 360px viewport. Mortgages
+     opens on tap via :focus-within, the same rule that drives hover. */
   .rail {
-    display: none;
+    top: 14px;
+    font-size: 12px;
+    letter-spacing: -0.1px;
+    padding: 4px 5px;
+    max-width: calc(100vw - 20px);
   }
 
-  .rail.is-open {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    inset: 0;
+  .rail ul {
+    gap: 0;
+  }
+
+  .rail a {
+    padding: 6px 9px;
+  }
+
+  /* The dropdown spans the viewport under the pill instead of hanging off the
+     Mortgages item, and goes near-opaque — at 0.55 the intro copy read through
+     the panel and collided with the lower links. Eleven items can outrun a
+     short viewport, so it scrolls internally. */
+  .rail .sub {
+    left: 0;
+    right: 0;
     width: auto;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: rgba(9, 12, 11, 0.88);
-    backdrop-filter: blur(16px);
-    text-align: center;
-    font-size: 24px;
+    max-width: none;
+    margin-top: 8px;
+    padding: 12px 18px;
+    max-height: calc(100dvh - 74px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: rgba(9, 12, 11, 0.92);
+    transform: translateY(-6px);
   }
 
-  .rail.is-open ul {
-    flex-direction: column;
+  .rail .has-sub:hover .sub,
+  .rail .has-sub:focus-within .sub {
+    transform: translateY(0);
   }
 
-  .rail.is-open > ul > li {
-    margin-bottom: 22px;
+  .rail .sub-inner-flat {
+    grid-template-rows: repeat(11, auto);
+    column-gap: 0;
+    row-gap: 0;
   }
 
-  .rail.is-open a {
-    color: var(--on-dark);
-  }
-
-  .rail.is-open .sub {
-    display: none;
+  .rail .sub a {
+    padding: 7px 0;
+    font-size: 13px;
   }
 
   .menu-btn {
-    display: block;
+    display: none;
   }
 
   .cross-v,
@@ -1097,48 +1113,8 @@ html.no-splash #intro-splash {
   row-gap: 2px;
 }
 
-/* Mortgages is a menu trigger (hover on desktop, revealed inline in the
-   mobile menu below) */
+/* Mortgages is a menu trigger — hover on pointer devices, tap on touch
+   (:focus-within drives both) */
 .rail .has-sub > a {
   cursor: pointer;
-}
-
-/* mobile: the rail becomes a full-screen menu. Reveal the service list inline
-   so every service stays reachable without any page scroll; the menu overlay
-   itself scrolls internally if the list runs taller than the screen. */
-@media (max-width: 900px) {
-  .rail.is-open {
-    align-items: flex-start;
-    justify-content: center;
-    overflow-y: auto;
-    padding: 84px 24px 40px;
-  }
-
-  .rail.is-open .sub {
-    display: block;
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: none;
-    width: auto;
-    max-width: none;
-    margin: 16px 0 0;
-    padding: 0;
-    background: none;
-    border: 0;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-
-  .rail.is-open .sub-inner-flat {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .rail.is-open .sub a {
-    font-size: 18px;
-    color: var(--on-dark-muted);
-  }
 }
