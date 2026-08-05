@@ -62,10 +62,10 @@
   });
   window.setTimeout(reveal, 120);
 
-  /* ---- hero video: desktop only, respects reduced motion ---- */
+  /* ---- hero video: plays at every width, respects reduced motion ---- */
   var video = document.getElementById("heroVideo");
   if (video) {
-    var wantsVideo = window.matchMedia("(min-width: 900px)").matches && !reduceMotion;
+    var wantsVideo = !reduceMotion;
     if (wantsVideo) {
       var attempts = 0;
       var tryPlay = function () {
@@ -116,9 +116,9 @@
     }
   );
 
-  /* ---- ambient video bands: play in view, desktop only ---- */
+  /* ---- ambient video bands: play in view, every width ---- */
   var bands = document.querySelectorAll(".band-video");
-  if (bands.length && !reduceMotion && window.matchMedia("(min-width: 900px)").matches) {
+  if (bands.length && !reduceMotion) {
     var playBand = function (v) {
       var p = v.play();
       if (p !== undefined) p.catch(function () { /* poster stays */ });
