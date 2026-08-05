@@ -151,7 +151,7 @@
 
   /* ---- ambient video ---- */
   var bands = document.querySelectorAll(".band-video");
-  if (bands.length && !reduceMotion && window.matchMedia("(min-width: 768px)").matches) {
+  if (bands.length && !reduceMotion && window.matchMedia("(min-width: 900px)").matches) {
     var io = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { var p = en.target.play(); if (p) p.catch(function () {}); }
