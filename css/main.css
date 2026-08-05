@@ -138,10 +138,38 @@ button {
   opacity: 1;
 }
 
+/* Left-weighted wash rather than a flat one: the intro copy is left-aligned,
+   so the darkening is concentrated where the text sits and the right of the
+   frame stays close to the clip's own exposure. */
 .hero-media .scrim {
   position: absolute;
   inset: 0;
-  background: rgba(9, 12, 11, 0.52);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(9, 12, 11, 0.62) 0%,
+      rgba(9, 12, 11, 0.44) 38%,
+      rgba(9, 12, 11, 0.14) 72%,
+      rgba(9, 12, 11, 0.06) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(9, 12, 11, 0.2) 0%,
+      rgba(9, 12, 11, 0.1) 45%,
+      rgba(9, 12, 11, 0.4) 100%
+    );
+}
+
+@media (max-width: 900px) {
+  /* narrow screens: the copy spans the full width, so favour the vertical wash */
+  .hero-media .scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(9, 12, 11, 0.34) 0%,
+      rgba(9, 12, 11, 0.3) 40%,
+      rgba(9, 12, 11, 0.62) 100%
+    );
+  }
 }
 
 /* --- crosshair datum lines (signature element) ------------------------- */
