@@ -20,3 +20,5 @@
 /* the overlay box spans the viewport but must not swallow clicks on the nav above it */
 [data-menu-overlay]{pointer-events:none}
 .menu-scrim,.menu-panel{pointer-events:auto}
+
+@media (min-width:1024px){.lg\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}

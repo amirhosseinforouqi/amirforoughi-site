@@ -380,18 +380,18 @@ button {
 }
 
 /* full dropdown open: everything behind the rail blurs (class set by js) */
+/* .wordmark, .chip and .intro are leftovers from an earlier version of the
+   home page and match nothing today — the intro copy is .hsec-copy (#intro is
+   an id, not a class), which is why it kept rendering sharp behind an open
+   dropdown while everything else blurred. */
 .hero-media,
-.home .wordmark,
-.home .chip,
-.home .intro,
+.home .hsec-copy,
 .home .strip {
   transition: filter 0.35s ease;
 }
 
 .home.mega-open .hero-media,
-.home.mega-open .wordmark,
-.home.mega-open .chip,
-.home.mega-open .intro,
+.home.mega-open .hsec-copy,
 .home.mega-open .strip {
   filter: blur(14px);
 }
@@ -768,7 +768,11 @@ button[type="submit"]:disabled {
     max-height: calc(100dvh - 74px);
     overflow-y: auto;
     overscroll-behavior: contain;
-    background: rgba(9, 12, 11, 0.92);
+    /* near-solid: .rail's own backdrop-filter establishes a backdrop root, so
+       this panel's backdrop-filter has nothing to sample and does not blur the
+       copy behind it. Any meaningful transparency shows that copy crisply
+       through the panel, so the fill has to do the work on its own. */
+    background: rgba(9, 12, 11, 0.97);
     transform: translateY(-6px);
   }
 
@@ -781,6 +785,13 @@ button[type="submit"]:disabled {
     grid-template-rows: repeat(11, auto);
     column-gap: 0;
     row-gap: 0;
+  }
+
+  /* groups stack on phones; the row gap between them stays wider than the
+     spacing between links so the three sections still read as separate */
+  .rail .sub-groups {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
   }
 
   .rail .sub a {
@@ -1104,6 +1115,25 @@ html.no-splash #intro-splash {
 /* ==========================================================================
    Home — Mortgages dropdown (single-screen cover, no page scroll)
    ========================================================================== */
+
+/* Grouped services dropdown: three labelled sections side by side. The gap
+   between groups is deliberately wider than the row gap inside one, so the
+   sections read as distinct without needing rules between them. */
+.sub-groups {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  align-items: start;
+  column-gap: 40px;
+}
+
+.sub-group + .sub-group .sub-head {
+  margin-top: 0;
+}
+
+/* the header is a label, not a destination — nothing to click or focus */
+.sub-groups .sub-head {
+  pointer-events: none;
+}
 
 /* flat priority-ordered dropdown (11 services, read down col 1 then col 2) */
 .sub-inner-flat {

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=16">
+  <link rel="stylesheet" href="css/main.css?v=17">
   <script>
   /* Splash gate — runs before first paint. Skips the intro when it already
      played this session, or when the visit arrives from an ad/UTM link. */
@@ -80,18 +80,25 @@
       <li class="has-sub">
         <a role="button" tabindex="0" aria-haspopup="true">Mortgages</a>
         <div class="sub" role="menu" aria-label="Mortgage services">
-          <div class="sub-inner sub-inner-flat">
-            <a role="menuitem" href="mortgages/renewals-and-switches.html">Renewals &amp; Switches</a>
-            <a role="menuitem" href="mortgages/self-employed.html">Self-Employed</a>
-            <a role="menuitem" href="mortgages/first-time-home-buyer.html">First-Time Buyer</a>
-            <a role="menuitem" href="mortgages/refinance.html">Refinance</a>
-            <a role="menuitem" href="mortgages/investment-properties.html">Investment Properties</a>
-            <a role="menuitem" href="mortgages/newcomers-to-canada.html">Newcomers to Canada</a>
-            <a role="menuitem" href="mortgages/private-lending.html">Private &amp; Alternative Lending</a>
-            <a role="menuitem" href="mortgages/complex-mortgages.html">Complex Mortgages</a>
-            <a role="menuitem" href="mortgages/reverse-mortgage.html">Reverse Mortgage</a>
-            <a role="menuitem" href="mortgages/pre-qualify.html">Pre-Qualify</a>
-            <a role="menuitem" href="mortgages/moving-up.html">Moving Up</a>
+          <div class="sub-groups">
+            <div class="sub-group" role="group" aria-labelledby="mg-buy">
+              <p class="sub-head" id="mg-buy">Buy</p>
+              <a role="menuitem" href="mortgages/pre-qualify.html">Pre-Qualify</a>
+              <a role="menuitem" href="mortgages/first-time-home-buyer.html">First-Time Buyer</a>
+              <a role="menuitem" href="mortgages/investment-properties.html">Investment Properties</a>
+            </div>
+            <div class="sub-group" role="group" aria-labelledby="mg-manage">
+              <p class="sub-head" id="mg-manage">Manage</p>
+              <a role="menuitem" href="mortgages/renewals-and-switches.html">Renewals &amp; Switches</a>
+              <a role="menuitem" href="mortgages/refinance.html">Refinance</a>
+            </div>
+            <div class="sub-group" role="group" aria-labelledby="mg-situation">
+              <p class="sub-head" id="mg-situation">Your situation</p>
+              <a role="menuitem" href="mortgages/self-employed.html">Self-Employed</a>
+              <a role="menuitem" href="mortgages/newcomers-to-canada.html">Newcomers to Canada</a>
+              <a role="menuitem" href="mortgages/private-lending.html">Private &amp; Alternative Lending</a>
+              <a role="menuitem" href="mortgages/complex-mortgages.html">Complex Mortgages</a>
+            </div>
           </div>
         </div>
       </li>
