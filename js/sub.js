@@ -23,32 +23,89 @@
     }).then(function (r) { onDone(r.ok); }).catch(function () { onDone(false); });
   }
 
-  /* ---- menu overlays (data-open-menu holds the overlay id; empty = menuOverlay) ---- */
-  var menus = document.querySelectorAll("[data-menu-overlay]");
-  if (menus.length) {
-    var closeMenus = function () {
-      Array.prototype.forEach.call(menus, function (m) { m.classList.add("hidden"); });
-      document.body.style.overflow = "";
+  /* ---- push-down reveal nav ------------------------------------------------
+     The panels sit inside .site-top, so opening one grows the sticky header and
+     the page below is pushed down by ordinary layout — no overlay, and the body
+     is never scroll-locked, because the page has not been covered.
+     Each trigger toggles its own panel and owns the aria-expanded state; only
+     one panel is open at a time. */
+  var panels = document.querySelectorAll(".nav-reveal");
+  if (panels.length) {
+    var triggers = document.querySelectorAll("[data-open-menu]");
+    var siteTopEl = document.querySelector(".site-top");
+
+    var triggersFor = function (id) {
+      return Array.prototype.filter.call(triggers, function (t) {
+        return (t.getAttribute("data-open-menu") || "menuOverlay") === id;
+      });
     };
-    Array.prototype.forEach.call(document.querySelectorAll("[data-open-menu]"), function (b) {
-      b.addEventListener("click", function () {
+
+    var setOpen = function (panel, open) {
+      panel.classList.toggle("is-open", open);
+      triggersFor(panel.id).forEach(function (t) {
+        t.setAttribute("aria-expanded", String(open));
+      });
+    };
+
+    var closeAll = function (except) {
+      Array.prototype.forEach.call(panels, function (p) {
+        if (p !== except && p.classList.contains("is-open")) setOpen(p, false);
+      });
+    };
+
+    Array.prototype.forEach.call(triggers, function (b) {
+      b.addEventListener("click", function (e) {
+        e.stopPropagation();
         var target = document.getElementById(b.getAttribute("data-open-menu") || "menuOverlay");
         if (!target) return;
-        closeMenus();
-        target.classList.remove("hidden");
-        document.body.style.overflow = "hidden";
+        var willOpen = !target.classList.contains("is-open");
+        closeAll(target);
+        setOpen(target, willOpen);
       });
     });
-    Array.prototype.forEach.call(document.querySelectorAll("[data-close-menu]"), function (b) { b.addEventListener("click", closeMenus); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenus(); });
+
+    Array.prototype.forEach.call(document.querySelectorAll("[data-close-menu]"), function (b) {
+      b.addEventListener("click", function () { closeAll(null); });
+    });
+
+    /* click anywhere outside the header chrome closes the open panel */
+    document.addEventListener("click", function (e) {
+      if (siteTopEl && siteTopEl.contains(e.target)) return;
+      closeAll(null);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      var open = document.querySelector(".nav-reveal.is-open");
+      if (!open) return;
+      closeAll(null);
+      /* return focus to the control that opened it */
+      var t = triggersFor(open.id)[0];
+      if (t) t.focus();
+    });
+
+    /* tabbing out of the header closes it too, so keyboard users are not left
+       with a panel open behind them */
+    document.addEventListener("focusin", function (e) {
+      if (siteTopEl && siteTopEl.contains(e.target)) return;
+      closeAll(null);
+    });
   }
 
   /* ---- sticky top chrome: condense once scrolled, and publish its height
          so the drop-down menus can sit directly beneath it ---- */
   var siteTop = document.querySelector(".site-top");
   if (siteTop) {
+    /* Publish the height of the BAR ROWS only, not of .site-top as a whole:
+       the reveal panels now live inside .site-top, and they size themselves
+       against this variable. Measuring the whole header would feed the open
+       panel's own height back into its max-height and collapse it. */
+    var firstPanel = siteTop.querySelector(".nav-reveal");
     var syncHeight = function () {
-      document.documentElement.style.setProperty("--site-top-h", siteTop.offsetHeight + "px");
+      var h = firstPanel
+        ? firstPanel.getBoundingClientRect().top - siteTop.getBoundingClientRect().top
+        : siteTop.offsetHeight;
+      document.documentElement.style.setProperty("--site-top-h", Math.round(h) + "px");
     };
     var onScroll = function () {
       siteTop.classList.toggle("is-stuck", window.scrollY > 8);
