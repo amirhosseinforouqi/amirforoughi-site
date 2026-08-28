@@ -19,7 +19,7 @@
       if (el) data[k] = el.value;
     });
     data.subject = "Callback request — " + (data.service || "website") + " — " + (data.name || "");
-    data.from_name = "Foroughi Mortgages website";
+    data.from_name = "Foroughi & Co website";
     data.page = window.location.pathname;
     fetch("https://api.web3forms.com/submit", {
       method: "POST",

@@ -10,7 +10,7 @@
 
   function sendLead(form, extra, onDone) {
     if (!WEB3FORMS_KEY) { onDone(true); return; }
-    var data = { access_key: WEB3FORMS_KEY, from_name: "Foroughi Mortgages website", page: window.location.pathname };
+    var data = { access_key: WEB3FORMS_KEY, from_name: "Foroughi & Co website", page: window.location.pathname };
     ["name", "phone", "email", "service", "calltime"].forEach(function (k) {
       var el = form.querySelector('[name="' + k + '"]:checked, [name="' + k + '"]:not([type=radio])');
       if (el) data[k] = el.value;

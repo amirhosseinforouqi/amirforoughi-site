@@ -150,3 +150,23 @@
   .nav-reveal.is-open .nav-reveal-inner { transition: none; }
   .nav-reveal-inner { transform: none; }
 }
+
+/* ==========================================================================
+   Brand logotype — "Foroughi & Co"
+   Didot is not a Google Font and cannot be served. It IS installed system-wide
+   on macOS and iOS, so naming it first gives Apple visitors the real face;
+   Bodoni Moda (a true Didone, served from Google Fonts) carries everyone else,
+   with Playfair/Georgia behind it. Scoped to the logotype so the rest of the
+   site keeps its existing type.
+   ========================================================================== */
+.brand-mark {
+  font-family: Didot, "Didot LT STD", "Bodoni Moda", "Playfair Display",
+    "Hoefler Text", Garamond, Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+}
+.brand-mark > span {
+  font-family: inherit;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
