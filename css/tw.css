@@ -165,8 +165,10 @@
   font-weight: 400;
   letter-spacing: 0.22em;
 }
+/* "& Co" inherits size, colour, weight and tracking from the mark — one
+   continuous logotype rather than a name with a smaller suffix */
 .brand-mark > span {
-  font-family: inherit;
-  font-weight: 400;
-  letter-spacing: 0.06em;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
 }

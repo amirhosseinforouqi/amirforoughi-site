@@ -1100,21 +1100,18 @@ html.no-splash #intro-splash {
     "Hoefler Text", Garamond, Georgia, "Times New Roman", serif;
 }
 
-.splash-wm {
-  font-size: clamp(44px, 7vw, 96px);
+/* one continuous logotype: "Foroughi" and "& Co" share size, weight, colour
+   and tracking so the mark reads as a single word, not a name plus a suffix */
+/* the mark is wider than "Foroughi" alone was, so the floor drops and the vw
+   step steepens — otherwise it runs to within ~17px of a 390px screen edge */
+.splash-wm,
+.splash-sub {
+  font-size: clamp(30px, 8.5vw, 96px);
   font-weight: 400;
   letter-spacing: 0.06em;
   line-height: 1;
   color: #fff;
   text-shadow: 0 2px 34px rgba(0, 0, 0, 0.55); /* readable over any frame */
-}
-
-.splash-sub {
-  font-size: clamp(17px, 1.9vw, 26px);
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.82);
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {
