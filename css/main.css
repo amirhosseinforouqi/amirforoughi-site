@@ -510,14 +510,19 @@ button {
      weight on the page than the serif did at the same measurement, so the
      size comes down a step and the tracking goes slightly negative, which
      is what display-size Inter wants. */
-  font-size: clamp(31px, 4.6vw, 58px);
+  /* Held to a single line at every width, so the size is driven by the
+     viewport rather than a fixed scale: 3.8vw is the largest coefficient at
+     which all 42 characters still clear the 24px side padding on a 320px
+     phone (measured, not estimated). It caps at 58px so the line stops
+     growing on wide monitors. The cost is a small headline on a narrow
+     phone — that is the trade for never wrapping. */
+  font-size: clamp(12px, 3.8vw, 58px);
   font-weight: 400;
   line-height: 1.16;
   letter-spacing: -0.02em;
   color: var(--on-dark);
   text-shadow: 0 2px 34px rgba(0, 0, 0, 0.45);
-  max-width: 19ch;
-  margin-inline: auto;
+  white-space: nowrap;
 }
 
 .cta-row {
@@ -1115,8 +1120,12 @@ button[type="submit"]:disabled {
   padding: 0 24px 12vh;
 }
 
+/* full width, not a 700px column: the headline is a single nowrap line that
+   sizes itself to the viewport, and a narrower block let that line overflow
+   its own container — which put 122px of real horizontal scroll on the page
+   at 1440 even though the text itself looked fine on screen. */
 .hsec-copy {
-  width: min(700px, 100%);
+  width: 100%;
   text-align: center;
 }
 
