@@ -230,14 +230,14 @@ button {
 }
 
 /* --- home logo -----------------------------------------------------------
-   Persistent brand mark, centered on the page. The intro copy sits lower,
-   left-aligned, from ~44vh down (see .hsec-copy) — 24vh keeps this clear of
-   it at every viewport height rather than colliding with the paragraph. */
+   Persistent brand mark, centered on the page, with the tagline and callback
+   button stacked directly beneath it (see .hsec-copy). Set in title case, not
+   uppercase — "Foroughi & Co" as written. */
 
 .home-logo {
   position: fixed;
   z-index: 3;
-  top: 24vh;
+  top: 20vh;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: "Times New Roman", Times, serif;
@@ -248,7 +248,6 @@ button {
   color: var(--on-dark);
   text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
   text-align: center;
-  text-transform: uppercase;
   pointer-events: none;
   white-space: nowrap;
 }
@@ -287,12 +286,15 @@ button {
   margin-bottom: 0;
 }
 
+/* every piece of home-page text sits at one colour — full white, matching the
+   logo and the tagline. Hover is signalled by the background wash alone, not
+   by brightening the label from a dimmer resting state. */
 .rail a {
   display: block;
   padding: 7px 18px;
   border-radius: var(--r-pill);
   text-decoration: none;
-  color: var(--on-dark-muted);
+  color: var(--on-dark);
   transition: color 0.2s ease, background 0.2s ease;
 }
 
@@ -302,7 +304,7 @@ button {
 }
 
 .rail .is-current > a {
-  color: var(--on-dark-faint);
+  color: var(--on-dark);
   pointer-events: none;
 }
 
@@ -321,27 +323,34 @@ button {
   position: relative;
 }
 
-/* anchored to the trigger's own left edge, matching .rail now that it is
-   left-aligned rather than page-centered — a translateX(-50%) centering
-   trick here assumed the old centered .rail and ran the panel off-screen
-   to the left once .rail moved to the page edge */
+/* Full-bleed panel: on hover the menu spans the entire page width rather
+   than hanging off the trigger as a small card. position:fixed anchors it to
+   the viewport, which needs .rail to stay transform-free — see the .home
+   .rail entrance rule near the bottom of this file. Top clears the rail
+   (which ends at ~72px) with the ::before bridge covering the gap so the
+   panel does not close as the pointer travels down into it. */
 .rail .sub {
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: 80px;
   left: 0;
-  margin-top: 12px;
+  right: 0;
+  width: auto;
+  max-width: none;
+  margin-top: 0;
   transform: translateY(-6px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s var(--ease-out),
     visibility 0.2s;
-  width: max-content;
-  max-width: 92vw;
-  padding: 22px 26px;
-  background: rgba(9, 12, 11, 0.55);
-  border: 1px solid var(--line-on-video);
-  border-radius: 20px;
+  padding: 44px max(48px, 5vw) 52px;
+  max-height: calc(100dvh - 80px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgba(9, 12, 11, 0.92);
+  border: 0;
+  border-top: 1px solid var(--line-on-video);
+  border-radius: 0;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   text-align: left;
@@ -373,10 +382,10 @@ button {
 
 .sub-head {
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1.4px;
-  color: var(--on-dark-faint, rgba(255, 255, 255, 0.45));
-  margin-bottom: 8px;
+  color: var(--on-dark);
+  margin-bottom: 14px;
 }
 
 /* full dropdown open: everything behind the rail blurs (class set by js) */
@@ -396,12 +405,13 @@ button {
   filter: blur(14px);
 }
 
+/* sized up to match the full-page panel — 14px links looked lost in it */
 .rail .sub a {
   display: block;
-  padding: 5px 0;
-  font-size: 14px;
+  padding: 8px 0;
+  font-size: 17px;
   white-space: nowrap;
-  color: var(--on-dark-muted);
+  color: var(--on-dark);
   background: none;
 }
 
@@ -501,7 +511,7 @@ button {
   gap: 24px;
   font-size: 11.5px;
   letter-spacing: 0;
-  color: var(--on-dark-muted);
+  color: var(--on-dark);
 }
 
 /* .compliance (the licence/brokerage line) was removed from the home page;
@@ -768,29 +778,16 @@ button[type="submit"]:disabled {
      Mortgages item, and goes near-opaque — at 0.55 the intro copy read through
      the panel and collided with the lower links. Eleven items can outrun a
      short viewport, so it scrolls internally. */
-  /* fixed rather than absolute: .has-sub (the trigger <li>) is now the
-     positioned ancestor (see .rail .has-sub above), so an absolute panel
-     here would size itself to one word's width, not a usable dropdown.
-     Anchoring to the viewport instead gives every trigger the same
-     full-width panel regardless of which one opened it. */
+  /* same full-bleed panel as desktop, tightened for a phone: the rail ends
+     at ~66px here, and the padding comes down so eleven services still fit
+     without scrolling on a normal handset. Near-solid rather than relying on
+     the blur — the video behind is highly varied (sky, buildings,
+     headlights) and copy read through the panel at lower opacity. */
   .rail .sub {
-    position: fixed;
-    top: 80px;
-    left: 24px;
-    right: 24px;
-    width: auto;
-    max-width: none;
-    margin-top: 0;
-    padding: 12px 18px;
-    max-height: calc(100dvh - 100px);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    /* near-solid rather than backdrop-blur: the video behind is highly
-       varied (sky, buildings, headlights), and a blur alone left the
-       intro copy legible enough through the panel to collide visually
-       with the lower links */
+    top: 74px;
+    padding: 22px 24px 30px;
+    max-height: calc(100dvh - 90px);
     background: rgba(9, 12, 11, 0.97);
-    transform: translateY(-6px);
   }
 
   .rail .has-sub:hover .sub,
@@ -1034,19 +1031,37 @@ button[type="submit"]:disabled {
   min-height: 100dvh;
 }
 
+/* Stacked under the logo as one centered column: tagline, then the callback
+   button. Centered with auto margins between left:0/right:0 rather than a
+   translateX(-50%) — .home-logo sits at 20vh with a translate(-50%,-50%), so
+   its lower edge is roughly 20vh + half its line box; the tops below clear
+   that at every viewport rather than overlapping the wordmark. */
 .hsec-copy {
   position: absolute;
-  left: 48px;
-  top: calc(38vh + 52px);
-  width: min(560px, 42vw);
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  top: calc(20vh + 62px);
+  /* wide enough that the tagline sets in two lines — at 620px "GTA." fell to
+     a third line on its own */
+  width: min(780px, 84vw);
+  text-align: center;
+}
+
+.home .cta-row {
+  justify-content: center;
 }
 
 @media (max-width: 900px) {
   .hsec-copy {
-    left: 24px;
-    right: 24px;
-    top: calc(30vh + 88px);
-    width: auto;
+    top: calc(20vh + 44px);
+    width: min(620px, calc(100vw - 48px));
+  }
+
+  /* the button centers under the tagline instead of stacking left-aligned */
+  .home .cta-row {
+    flex-direction: row;
+    align-items: center;
   }
 }
 
@@ -1154,9 +1169,11 @@ html.no-splash #intro-splash {
 /* Grouped services dropdown: three labelled sections side by side. The gap
    between groups is deliberately wider than the row gap inside one, so the
    sections read as distinct without needing rules between them. */
+/* the three groups spread evenly across the full-page panel instead of
+   bunching at the left edge in max-content columns */
 .sub-groups {
   display: grid;
-  grid-template-columns: repeat(3, max-content);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
   column-gap: 40px;
 }
