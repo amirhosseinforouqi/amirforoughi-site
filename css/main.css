@@ -230,26 +230,36 @@ button {
 }
 
 /* --- home logo -----------------------------------------------------------
-   Persistent brand mark, centered on the page, with the tagline and callback
-   button stacked directly beneath it (see .hsec-copy). Set in title case, not
-   uppercase — "Foroughi & Co" as written. */
+   Brand mark in title case — "Foroughi & Co" as written, not uppercased —
+   heading the centred hero lockup. */
 
+/* Sits in normal flow as the first line of the hero lockup (see .hsec), not
+   pinned at a fixed vh — the whole stack centres as one block, so nothing
+   here needs to be kept clear of anything else by hand. Tracking eased from
+   0.18em to 0.1em: at display size the wider setting read as stretched
+   rather than considered. */
 .home-logo {
-  position: fixed;
-  z-index: 3;
-  top: 20vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-family: "Times New Roman", Times, serif;
   font-weight: 400;
-  letter-spacing: 0.18em;
-  font-size: clamp(28px, 5.5vw, 60px);
-  line-height: 1;
+  letter-spacing: 0.1em;
+  /* the trailing letter-space pushes the optical centre left; the indent
+     puts it back */
+  text-indent: 0.1em;
+  font-size: clamp(34px, 6.4vw, 74px);
+  line-height: 1.05;
   color: var(--on-dark);
-  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  pointer-events: none;
+  text-shadow: 0 2px 34px rgba(0, 0, 0, 0.45);
   white-space: nowrap;
+}
+
+/* hairline under the wordmark — the one piece of structure in the lockup,
+   and what makes it read as a masthead rather than three stacked lines */
+.logo-rule {
+  display: block;
+  width: 68px;
+  height: 1px;
+  margin: 28px auto 26px;
+  background: var(--on-dark);
 }
 
 /* "& Co" matches "Foroughi" in size, weight and tracking — see tw.css'
@@ -343,16 +353,35 @@ button {
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s var(--ease-out),
     visibility 0.2s;
-  padding: 44px max(48px, 5vw) 52px;
+  padding: 44px max(48px, 5vw) 64px;
+  /* dissolves the bottom edge — without this the dimming and the backdrop
+     blur both stop on a hard horizontal line across the footage. The fade is
+     shorter than the bottom padding so it only ever eats empty space, never
+     the last row of links. */
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), transparent);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 calc(100% - 56px),
+    transparent
+  );
   max-height: calc(100dvh - 80px);
   overflow-y: auto;
   overscroll-behavior: contain;
-  background: rgba(9, 12, 11, 0.92);
+  /* a fade, not a black slab: the footage stays visible through the panel,
+     dimmed just enough to hold white text. The gradient thins toward the
+     bottom so the panel dissolves into the page instead of ending on a hard
+     horizontal edge, and the heavier blur does the legibility work that
+     opacity used to. */
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 12, 11, 0.74) 0%,
+    rgba(9, 12, 11, 0.66) 62%,
+    rgba(9, 12, 11, 0.34) 100%
+  );
   border: 0;
-  border-top: 1px solid var(--line-on-video);
   border-radius: 0;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(26px) saturate(115%);
+  -webkit-backdrop-filter: blur(26px) saturate(115%);
   text-align: left;
 }
 
@@ -449,12 +478,17 @@ button {
   width: min(560px, 42vw);
 }
 
+/* stepped down from clamp(20px,2vw,27px): at display size it competed with
+   the wordmark instead of sitting under it. The ch measure keeps it to two
+   comfortable lines on a wide screen without a hard pixel width. */
 .lede {
-  font-size: clamp(20px, 2vw, 27px);
+  font-size: clamp(16px, 1.35vw, 20px);
   font-weight: 300;
-  line-height: 1.42;
-  letter-spacing: -0.1px;
+  line-height: 1.6;
+  letter-spacing: 0.012em;
   color: var(--on-dark);
+  max-width: 48ch;
+  margin-inline: auto;
 }
 
 .cta-row {
@@ -778,16 +812,27 @@ button[type="submit"]:disabled {
      Mortgages item, and goes near-opaque — at 0.55 the intro copy read through
      the panel and collided with the lower links. Eleven items can outrun a
      short viewport, so it scrolls internally. */
-  /* same full-bleed panel as desktop, tightened for a phone: the rail ends
-     at ~66px here, and the padding comes down so eleven services still fit
-     without scrolling on a normal handset. Near-solid rather than relying on
-     the blur — the video behind is highly varied (sky, buildings,
-     headlights) and copy read through the panel at lower opacity. */
+  /* same faded full-bleed panel as desktop, tightened for a phone: the rail
+     ends at ~66px here, and the padding comes down so eleven services fit
+     without scrolling on a normal handset. Carries a little more weight than
+     desktop — the panel covers most of a phone screen, so the footage behind
+     it is doing more to disturb the text. */
   .rail .sub {
     top: 74px;
-    padding: 22px 24px 30px;
+    padding: 22px 24px 40px;
     max-height: calc(100dvh - 90px);
-    background: rgba(9, 12, 11, 0.97);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 32px), transparent);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 calc(100% - 32px),
+      transparent
+    );
+    background: linear-gradient(
+      to bottom,
+      rgba(9, 12, 11, 0.82) 0%,
+      rgba(9, 12, 11, 0.74) 62%,
+      rgba(9, 12, 11, 0.44) 100%
+    );
   }
 
   .rail .has-sub:hover .sub,
@@ -1025,40 +1070,62 @@ button[type="submit"]:disabled {
   background: var(--tile-dark);
 }
 
+/* One centred lockup — wordmark, hairline, tagline, callback — laid out in
+   normal flow and centred as a block. The bottom padding lifts it above true
+   centre: dead centre reads low against a skyline whose interest sits in the
+   lower half of the frame. */
 .hsec {
   position: relative;
   z-index: 4;
   min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px 12vh;
 }
 
-/* Stacked under the logo as one centered column: tagline, then the callback
-   button. Centered with auto margins between left:0/right:0 rather than a
-   translateX(-50%) — .home-logo sits at 20vh with a translate(-50%,-50%), so
-   its lower edge is roughly 20vh + half its line box; the tops below clear
-   that at every viewport rather than overlapping the wordmark. */
 .hsec-copy {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-inline: auto;
-  top: calc(20vh + 62px);
-  /* wide enough that the tagline sets in two lines — at 620px "GTA." fell to
-     a third line on its own */
-  width: min(780px, 84vw);
+  width: min(700px, 100%);
   text-align: center;
 }
 
 .home .cta-row {
   justify-content: center;
+  margin-top: 34px;
+}
+
+/* the button reads as sitting on the footage rather than pasted onto it —
+   the shadow grounds it, and it lifts slightly on hover */
+.home .btn-pill {
+  font-size: 15.5px;
+  letter-spacing: 0.01em;
+  padding: 15px 34px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.34);
+  transition: background 0.2s ease, transform 0.2s var(--ease-out),
+    box-shadow 0.2s ease;
+}
+
+.home .btn-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.42);
+}
+
+.home .btn-pill:active {
+  transform: translateY(0);
 }
 
 @media (max-width: 900px) {
-  .hsec-copy {
-    top: calc(20vh + 44px);
-    width: min(620px, calc(100vw - 48px));
+  /* less bottom offset than desktop — a tall phone frame does not need the
+     lockup pushed as far above centre to look balanced */
+  .hsec {
+    padding-bottom: 8vh;
   }
 
-  /* the button centers under the tagline instead of stacking left-aligned */
+  .logo-rule {
+    margin: 22px auto 20px;
+  }
+
+  /* the button centres under the tagline instead of stacking left-aligned */
   .home .cta-row {
     flex-direction: row;
     align-items: center;
