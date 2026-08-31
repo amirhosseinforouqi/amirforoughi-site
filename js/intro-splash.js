@@ -32,9 +32,11 @@
   var logo = splash.querySelector(".splash-logo");
   var slides = Array.prototype.slice.call(splash.querySelectorAll(".splash-slide"));
   var nav = [];
-  var railEl = document.querySelector(".rail");
+  /* the whole header bar, so the wordmark fades in with the links rather
+     than popping in ahead of them */
+  var barEl = document.querySelector(".topbar");
   var menuBtn = document.querySelector(".menu-btn");
-  if (railEl) nav.push(railEl);
+  if (barEl) nav.push(barEl);
   if (menuBtn) nav.push(menuBtn);
 
   /* the nav stays hidden while the splash runs (CSS: html.intro-lock);

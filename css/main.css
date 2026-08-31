@@ -233,33 +233,35 @@ button {
    Brand mark in title case — "Foroughi & Co" as written, not uppercased —
    heading the centred hero lockup. */
 
-/* Sits in normal flow as the first line of the hero lockup (see .hsec), not
-   pinned at a fixed vh — the whole stack centres as one block, so nothing
-   here needs to be kept clear of anything else by hand. Tracking eased from
-   0.18em to 0.1em: at display size the wider setting read as stretched
-   rather than considered. */
+/* One fixed header row: wordmark hard left, nav hard right. Both live in
+   here rather than being pinned independently, so they can never collide as
+   the viewport narrows — the flex row shares the space out instead.
+   Deliberately transform-free: .sub, the dropdown panel, is position:fixed
+   and takes the nearest transformed ancestor as its containing block, so a
+   transform anywhere up this chain would break the full-width menu. That is
+   why the entrance below animates opacity only. */
+.topbar {
+  position: fixed;
+  z-index: 5;
+  top: 22px;
+  left: 48px;
+  right: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* set to the nav's own size and colour so the row reads as one bar, with
+   the serif keeping it recognisable as the mark rather than another link */
 .home-logo {
   font-family: "Times New Roman", Times, serif;
   font-weight: 400;
-  letter-spacing: 0.1em;
-  /* the trailing letter-space pushes the optical centre left; the indent
-     puts it back */
-  text-indent: 0.1em;
-  font-size: clamp(34px, 6.4vw, 74px);
-  line-height: 1.05;
+  letter-spacing: 0.08em;
+  font-size: 15px;
+  line-height: 1;
   color: var(--on-dark);
-  text-shadow: 0 2px 34px rgba(0, 0, 0, 0.45);
   white-space: nowrap;
-}
-
-/* hairline under the wordmark — the one piece of structure in the lockup,
-   and what makes it read as a masthead rather than three stacked lines */
-.logo-rule {
-  display: block;
-  width: 68px;
-  height: 1px;
-  margin: 28px auto 26px;
-  background: var(--on-dark);
 }
 
 /* "& Co" matches "Foroughi" in size, weight and tracking — see tw.css'
@@ -271,14 +273,10 @@ button {
 
 /* --- right-rail nav ------------------------------------------------------ */
 
-/* plain left-aligned link row — no pill container. Individual links keep
-   their own hover state (.rail a:hover below); only the outer group
-   background/border/blur is gone. */
+/* plain link row, no pill container — individual links keep their own hover
+   state (.rail a:hover below). Placement is .topbar's job now; this just
+   sits at the right-hand end of that row. */
 .rail {
-  position: fixed;
-  z-index: 5;
-  top: 22px;
-  left: 48px;
   width: max-content;
   font-size: 15px;
   letter-spacing: -0.1px;
@@ -290,6 +288,9 @@ button {
   display: flex;
   align-items: center;
   gap: 2px;
+  /* cancels the last link's own right padding so the row of words ends on
+     the same margin the wordmark starts on, rather than 18px past it */
+  margin-right: -18px;
 }
 
 .rail > ul > li {
@@ -506,16 +507,18 @@ button {
   width: min(560px, 42vw);
 }
 
-/* stepped down from clamp(20px,2vw,27px): at display size it competed with
-   the wordmark instead of sitting under it. The ch measure keeps it to two
-   comfortable lines on a wide screen without a hard pixel width. */
-.lede {
-  font-size: clamp(16px, 1.35vw, 20px);
-  font-weight: 300;
-  line-height: 1.6;
-  letter-spacing: 0.012em;
+/* The page's h1 and its only display type — the wordmark has moved up to
+   the header bar, so this carries the hero on its own. Serif to echo the
+   mark rather than introducing a third voice. */
+.hero-title {
+  font-family: "Times New Roman", Times, serif;
+  font-size: clamp(34px, 5.6vw, 68px);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: 0.005em;
   color: var(--on-dark);
-  max-width: 48ch;
+  text-shadow: 0 2px 34px rgba(0, 0, 0, 0.45);
+  max-width: 18ch;
   margin-inline: auto;
 }
 
@@ -816,24 +819,35 @@ button[type="submit"]:disabled {
     --cy: 30%;
   }
 
-  /* Phones keep the plain left-aligned rail rather than a hamburger overlay.
-     Three top-level items leave room for full-size tap targets at a 360px
-     viewport. Mortgages and About open on tap via :focus-within, the rule
-     that also drives hover. */
-  .rail {
+  /* Phones keep the same bar — wordmark left, three links right — rather
+     than collapsing to a hamburger. The link padding comes in so wordmark
+     plus Mortgages/About/Tools still fit a 360px viewport on one line;
+     Mortgages and About open on tap via :focus-within, the rule that also
+     drives hover. */
+  .topbar {
     top: 14px;
     left: 24px;
+    right: 24px;
+    gap: 12px;
+  }
+
+  .home-logo {
+    font-size: 14px;
+    letter-spacing: 0.06em;
+  }
+
+  .rail {
     font-size: 14px;
     padding: 5px 0;
-    max-width: calc(100vw - 48px);
   }
 
   .rail ul {
     gap: 0;
+    margin-right: -11px;
   }
 
   .rail a {
-    padding: 11px 15px;
+    padding: 11px 11px;
   }
 
   /* The dropdown spans the viewport under the pill instead of hanging off the
@@ -927,10 +941,6 @@ button[type="submit"]:disabled {
     top: calc(var(--cy) + 88px);
   }
 
-  .lede {
-    font-size: 19px;
-  }
-
   .cta-row {
     flex-direction: column;
     align-items: flex-start;
@@ -979,13 +989,13 @@ button[type="submit"]:disabled {
   transition: opacity 0.9s ease, transform 0.9s var(--ease-out);
 }
 
-/* .rail fades only, no transform: it hosts .sub, the dropdown panel, which
-   is position:fixed on mobile so it can span the full viewport width. Any
-   transform other than none on .rail — even mid-transition — makes .rail
-   itself the fixed-position containing block instead of the viewport,
-   shrinking the panel to .rail's own width for as long as the entrance
-   animation runs. */
-.home .rail {
+/* .topbar fades only, no transform: it contains .sub, the dropdown panel,
+   which is position:fixed so it can span the full viewport width. Any
+   transform other than none on an ancestor — even mid-transition — makes
+   that ancestor the fixed-position containing block instead of the
+   viewport, shrinking the panel to the bar's own width for as long as the
+   entrance animation runs. */
+.home .topbar {
   opacity: 0;
   transition: opacity 0.9s ease;
 }
@@ -1008,7 +1018,7 @@ button[type="submit"]:disabled {
   transform: none;
 }
 
-.home.is-loaded .rail {
+.home.is-loaded .topbar {
   opacity: 1;
 }
 
@@ -1029,7 +1039,7 @@ button[type="submit"]:disabled {
   transition-delay: 0.9s;
 }
 
-.home.is-loaded .rail,
+.home.is-loaded .topbar,
 .home.is-loaded .menu-btn {
   transition-delay: 1.05s;
 }
@@ -1046,7 +1056,7 @@ button[type="submit"]:disabled {
   .home .chip,
   .home .intro,
   .home .strip,
-  .home .rail,
+  .home .topbar,
   .home .menu-btn,
   .home .ticks,
   .hero-media video,
@@ -1150,10 +1160,6 @@ button[type="submit"]:disabled {
     padding-bottom: 8vh;
   }
 
-  .logo-rule {
-    margin: 22px auto 20px;
-  }
-
   /* the button centres under the tagline instead of stacking left-aligned */
   .home .cta-row {
     flex-direction: row;
@@ -1173,7 +1179,7 @@ html.intro-lock body {
 
 /* while the splash plays, the fixed nav waits at opacity 0; GSAP fades it
    in near the end of the exit tween (inline style wins over this rule) */
-html.intro-lock .home .rail,
+html.intro-lock .home .topbar,
 html.intro-lock .home .menu-btn {
   opacity: 0;
   transition: none;
