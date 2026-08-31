@@ -1089,15 +1089,12 @@ html.no-splash #intro-splash {
   will-change: transform;
 }
 
-/* Didot is not servable as a webfont — it ships with macOS/iOS, so Apple
-   visitors get the real face and Bodoni Moda (Google Fonts) carries the rest.
-   The old -0.045em tracking and 600 weight were tuned for Inter; a Didone needs
-   the opposite treatment — light weight, open tracking — or it reads as a
-   cramped slab. */
+/* Times New Roman by explicit request — a universal system font, no webfont
+   request needed. The old -0.045em tracking and 600 weight were tuned for
+   Inter; Times wants a lighter hand too, or it reads as a cramped slab. */
 .splash-wm,
 .splash-sub {
-  font-family: Didot, "Didot LT STD", "Bodoni Moda", "Playfair Display",
-    "Hoefler Text", Garamond, Georgia, "Times New Roman", serif;
+  font-family: "Times New Roman", Times, serif;
 }
 
 /* one continuous logotype: "Foroughi" and "& Co" share size, weight, colour
