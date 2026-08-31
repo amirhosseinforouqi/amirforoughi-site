@@ -229,63 +229,51 @@ button {
   );
 }
 
-/* --- wordmark ----------------------------------------------------------- */
+/* --- home logo -----------------------------------------------------------
+   Persistent brand mark, centered on the page. The intro copy sits lower,
+   left-aligned, from ~44vh down (see .hsec-copy) — 24vh keeps this clear of
+   it at every viewport height rather than colliding with the paragraph. */
 
-.wordmark {
+.home-logo {
   position: fixed;
   z-index: 3;
-  left: 0;
-  right: 0;
-  bottom: calc(100% - var(--cy));
-  display: flex;
-  align-items: flex-end;
-  pointer-events: none;
-  padding-bottom: 16px;
-}
-
-/* the big word ends exactly at the vertical datum line */
-.wm-left {
-  flex: 0 0 var(--cx);
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 64px;
-}
-
-.wm-main {
-  font-size: clamp(52px, 7.4vw, 112px);
-  font-weight: 600;
-  letter-spacing: -0.045em;
-  line-height: 0.94;
-  color: var(--on-dark);
-}
-
-.wm-sub {
-  font-size: clamp(17px, 1.5vw, 22px);
+  top: 24vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Times New Roman", Times, serif;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.18em;
+  font-size: clamp(28px, 5.5vw, 60px);
+  line-height: 1;
   color: var(--on-dark);
-  align-self: flex-start;
-  padding: 0.35em 0 0 36px;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* "& Co" matches "Foroughi" in size, weight and tracking — see tw.css'
+   .brand-mark for the same rule applied to the interior-page header */
+.home-logo > span {
+  font: inherit;
+  letter-spacing: inherit;
 }
 
 /* --- right-rail nav ------------------------------------------------------ */
 
+/* plain left-aligned link row — no pill container. Individual links keep
+   their own hover state (.rail a:hover below); only the outer group
+   background/border/blur is gone. */
 .rail {
   position: fixed;
   z-index: 5;
   top: 22px;
-  left: 0;
-  right: 0;
+  left: 48px;
   width: max-content;
-  margin-inline: auto;
   font-size: 15px;
   letter-spacing: -0.1px;
-  padding: 7px 8px;
-  background: rgba(9, 12, 11, 0.3);
-  border: 1px solid var(--line-on-video);
-  border-radius: var(--r-pill);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  padding: 7px 0;
 }
 
 .rail ul {
@@ -325,12 +313,24 @@ button {
 }
 
 /* dropdown panel — drops below the top-center pill */
+/* .sub positions absolutely against the nearest positioned ancestor, which
+   without this would be .rail itself (the whole nav group) rather than the
+   individual trigger — every dropdown would open flush with .rail's left
+   edge regardless of which link opened it, not under the word clicked */
+.rail .has-sub {
+  position: relative;
+}
+
+/* anchored to the trigger's own left edge, matching .rail now that it is
+   left-aligned rather than page-centered — a translateX(-50%) centering
+   trick here assumed the old centered .rail and ran the panel off-screen
+   to the left once .rail moved to the page edge */
 .rail .sub {
   position: absolute;
   top: 100%;
-  left: 50%;
+  left: 0;
   margin-top: 12px;
-  transform: translateX(-50%) translateY(-6px);
+  transform: translateY(-6px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -362,7 +362,7 @@ button {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
 .sub-inner {
@@ -502,6 +502,15 @@ button {
   font-size: 11.5px;
   letter-spacing: 0;
   color: var(--on-dark-muted);
+}
+
+/* .compliance (the licence/brokerage line) was removed from the home page;
+   .locale is now the strip's only child, and a lone flex item under
+   space-between sits flush left, not on the right where it was designed to
+   sit. margin-left: auto keeps it pinned to the right edge on its own. The
+   full licence disclosure still appears on every interior page footer. */
+.strip .locale {
+  margin-left: auto;
 }
 
 /* ==========================================================================
@@ -735,15 +744,16 @@ button[type="submit"]:disabled {
     --cy: 30%;
   }
 
-  /* Phones keep the desktop pill rail rather than a hamburger overlay. Three
-     top-level items leave room for full-size tap targets at a 360px viewport.
-     Mortgages and About open on tap via :focus-within, the rule that also
-     drives hover. */
+  /* Phones keep the plain left-aligned rail rather than a hamburger overlay.
+     Three top-level items leave room for full-size tap targets at a 360px
+     viewport. Mortgages and About open on tap via :focus-within, the rule
+     that also drives hover. */
   .rail {
     top: 14px;
+    left: 24px;
     font-size: 14px;
-    padding: 5px 6px;
-    max-width: calc(100vw - 20px);
+    padding: 5px 0;
+    max-width: calc(100vw - 48px);
   }
 
   .rail ul {
@@ -758,20 +768,27 @@ button[type="submit"]:disabled {
      Mortgages item, and goes near-opaque — at 0.55 the intro copy read through
      the panel and collided with the lower links. Eleven items can outrun a
      short viewport, so it scrolls internally. */
+  /* fixed rather than absolute: .has-sub (the trigger <li>) is now the
+     positioned ancestor (see .rail .has-sub above), so an absolute panel
+     here would size itself to one word's width, not a usable dropdown.
+     Anchoring to the viewport instead gives every trigger the same
+     full-width panel regardless of which one opened it. */
   .rail .sub {
-    left: 0;
-    right: 0;
+    position: fixed;
+    top: 80px;
+    left: 24px;
+    right: 24px;
     width: auto;
     max-width: none;
-    margin-top: 8px;
+    margin-top: 0;
     padding: 12px 18px;
-    max-height: calc(100dvh - 74px);
+    max-height: calc(100dvh - 100px);
     overflow-y: auto;
     overscroll-behavior: contain;
-    /* near-solid: .rail's own backdrop-filter establishes a backdrop root, so
-       this panel's backdrop-filter has nothing to sample and does not blur the
-       copy behind it. Any meaningful transparency shows that copy crisply
-       through the panel, so the fill has to do the work on its own. */
+    /* near-solid rather than backdrop-blur: the video behind is highly
+       varied (sky, buildings, headlights), and a blur alone left the
+       intro copy legible enough through the panel to collide visually
+       with the lower links */
     background: rgba(9, 12, 11, 0.97);
     transform: translateY(-6px);
   }
@@ -884,12 +901,22 @@ button[type="submit"]:disabled {
 .home .chip,
 .home .intro,
 .home .strip,
-.home .rail,
 .home .menu-btn,
 .home .ticks {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.9s ease, transform 0.9s var(--ease-out);
+}
+
+/* .rail fades only, no transform: it hosts .sub, the dropdown panel, which
+   is position:fixed on mobile so it can span the full viewport width. Any
+   transform other than none on .rail — even mid-transition — makes .rail
+   itself the fixed-position containing block instead of the viewport,
+   shrinking the panel to .rail's own width for as long as the entrance
+   animation runs. */
+.home .rail {
+  opacity: 0;
+  transition: opacity 0.9s ease;
 }
 
 .home .chip {
@@ -904,11 +931,14 @@ button[type="submit"]:disabled {
 .home.is-loaded .wordmark,
 .home.is-loaded .intro,
 .home.is-loaded .strip,
-.home.is-loaded .rail,
 .home.is-loaded .menu-btn,
 .home.is-loaded .ticks {
   opacity: 1;
   transform: none;
+}
+
+.home.is-loaded .rail {
+  opacity: 1;
 }
 
 .home.is-loaded .chip {
