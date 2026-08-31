@@ -421,12 +421,6 @@ button {
   transform: translateY(0);
 }
 
-.sub-inner {
-  display: grid;
-  grid-template-columns: repeat(4, max-content);
-  gap: 20px 34px;
-}
-
 .sub-head {
   text-transform: uppercase;
   font-size: 12px;
@@ -511,14 +505,18 @@ button {
    the header bar, so this carries the hero on its own. Serif to echo the
    mark rather than introducing a third voice. */
 .hero-title {
-  font-family: "Times New Roman", Times, serif;
-  font-size: clamp(34px, 5.6vw, 68px);
+  /* Inter, the same face as the nav — inherited from body rather than
+     restated, so it tracks any future change to --font. Inter carries more
+     weight on the page than the serif did at the same measurement, so the
+     size comes down a step and the tracking goes slightly negative, which
+     is what display-size Inter wants. */
+  font-size: clamp(31px, 4.6vw, 58px);
   font-weight: 400;
-  line-height: 1.14;
-  letter-spacing: 0.005em;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
   color: var(--on-dark);
   text-shadow: 0 2px 34px rgba(0, 0, 0, 0.45);
-  max-width: 18ch;
+  max-width: 19ch;
   margin-inline: auto;
 }
 
@@ -881,12 +879,6 @@ button[type="submit"]:disabled {
   .rail .has-sub:focus-within .sub,
   .rail .has-sub.is-open .sub {
     transform: translateY(0);
-  }
-
-  .rail .sub-inner-flat {
-    grid-template-rows: repeat(11, auto);
-    column-gap: 0;
-    row-gap: 0;
   }
 
   /* groups stack on phones; the row gap between them stays wider than the
@@ -1287,15 +1279,6 @@ html.no-splash #intro-splash {
 /* the header is a label, not a destination — nothing to click or focus */
 .sub-groups .sub-head {
   pointer-events: none;
-}
-
-/* flat priority-ordered dropdown (11 services, read down col 1 then col 2) */
-.sub-inner-flat {
-  display: grid;
-  grid-template-rows: repeat(6, auto);
-  grid-auto-flow: column;
-  column-gap: 44px;
-  row-gap: 2px;
 }
 
 /* Mortgages is a menu trigger — hover on pointer devices, tap on touch
