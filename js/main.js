@@ -97,21 +97,36 @@
     });
   }
 
-  /* ---- mega dropdown: blur the page behind the open menu ---- */
+  /* ---- mega dropdown: hold it open, and blur the page behind it ----
+     Hover alone is twitchy: any momentary gap between the trigger and the
+     panel — a fast diagonal, a hand that overshoots — closes the menu
+     mid-reach. The .is-open class keeps it up for a grace period after the
+     pointer leaves, and re-entering within that window cancels the close. */
+  var MENU_CLOSE_DELAY = 260;
   Array.prototype.forEach.call(
     document.querySelectorAll(".nav-drop, .rail .has-sub"),
     function (drop) {
-      drop.addEventListener("mouseenter", function () {
+      var closeTimer = null;
+
+      function open() {
+        window.clearTimeout(closeTimer);
+        drop.classList.add("is-open");
         body.classList.add("mega-open");
-      });
-      drop.addEventListener("mouseleave", function () {
-        body.classList.remove("mega-open");
-      });
-      drop.addEventListener("focusin", function () {
-        body.classList.add("mega-open");
-      });
+      }
+
+      function closeSoon() {
+        window.clearTimeout(closeTimer);
+        closeTimer = window.setTimeout(function () {
+          drop.classList.remove("is-open");
+          body.classList.remove("mega-open");
+        }, MENU_CLOSE_DELAY);
+      }
+
+      drop.addEventListener("mouseenter", open);
+      drop.addEventListener("mouseleave", closeSoon);
+      drop.addEventListener("focusin", open);
       drop.addEventListener("focusout", function (e) {
-        if (!drop.contains(e.relatedTarget)) body.classList.remove("mega-open");
+        if (!drop.contains(e.relatedTarget)) closeSoon();
       });
     }
   );
