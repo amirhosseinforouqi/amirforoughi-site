@@ -8,6 +8,48 @@
   var body = document.body;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---- hero headline: fill the width on exactly one line ----
+     The headline must never wrap, and it should be as large as that allows.
+     CSS cannot express this: a vw coefficient is a guess at the font's
+     metrics, and the guess goes wrong whenever the face, weight, style or
+     wording changes — bold italic alone is materially wider than the
+     upright it replaced. So measure instead. Setting a known probe size and
+     reading scrollWidth gives the text's width per px of font-size, which
+     turns the answer into arithmetic that holds for any font.
+
+     Runs again on document.fonts.ready because the first measurement can
+     land on the fallback face, and Inter is a different width. */
+  function fitHeroTitle() {
+    var title = document.querySelector(".hero-title");
+    if (!title || !title.parentElement) return;
+
+    var avail = title.parentElement.clientWidth;
+    if (!avail) return;
+
+    var PROBE = 100;
+    title.style.fontSize = PROBE + "px";
+    var widthAtProbe = title.scrollWidth;
+    title.style.fontSize = "";
+    if (!widthAtProbe) return;
+
+    /* 0.94 rather than a hard fit: it keeps a margin either side so the line
+       does not run to the very edges, and absorbs sub-pixel rounding that
+       could otherwise tip it into a wrap or push a scrollbar onto the page */
+    var ideal = PROBE * (avail / widthAtProbe) * 0.94;
+    var max = window.matchMedia("(max-width: 600px)").matches ? 30 : 58;
+    title.style.fontSize = Math.min(ideal, max).toFixed(2) + "px";
+  }
+
+  fitHeroTitle();
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(fitHeroTitle);
+  }
+  var fitTimer = null;
+  window.addEventListener("resize", function () {
+    window.clearTimeout(fitTimer);
+    fitTimer = window.setTimeout(fitHeroTitle, 120);
+  });
+
   function sendLead(form, onDone) {
     if (!WEB3FORMS_KEY) {
       onDone(true); /* demo mode */

@@ -252,13 +252,15 @@ button {
   gap: 24px;
 }
 
-/* set to the nav's own size and colour so the row reads as one bar, with
-   the serif keeping it recognisable as the mark rather than another link */
+/* Scaled up to carry the top-left corner the way the reference mark does,
+   rather than sitting at nav size. It cannot grow freely on a phone though:
+   the bar holds the mark and three links on one line, and past ~15px there
+   is no longer room for both at 320px — hence the phone floor below. */
 .home-logo {
   font-family: "Times New Roman", Times, serif;
   font-weight: 400;
   letter-spacing: 0.08em;
-  font-size: 15px;
+  font-size: clamp(15px, 2.4vw, 32px);
   line-height: 1;
   color: var(--on-dark);
   white-space: nowrap;
@@ -510,24 +512,22 @@ button {
   width: min(560px, 42vw);
 }
 
-/* The page's h1 and its only display type — the wordmark has moved up to
-   the header bar, so this carries the hero on its own. Serif to echo the
-   mark rather than introducing a third voice. */
+/* The page's h1 and its only display type — the wordmark sits up in the
+   header bar, so this carries the hero on its own. Inter, the same face as
+   the nav, inherited from body rather than restated so it tracks any future
+   change to --font. Bold italic, per the reference.
+
+   The size here is a fallback only: js/main.js measures the line's real
+   rendered width once webfonts have settled and sets the exact size that
+   fills the space on one line (see fitHeroTitle). A hand-tuned vw
+   coefficient cannot do that job — it is guessing at font metrics, and the
+   guess breaks whenever the face, the weight, the style or the wording
+   changes. This clamp is deliberately conservative so the no-JS rendering
+   still holds one line. */
 .hero-title {
-  /* Inter, the same face as the nav — inherited from body rather than
-     restated, so it tracks any future change to --font. Inter carries more
-     weight on the page than the serif did at the same measurement, so the
-     size comes down a step and the tracking goes slightly negative, which
-     is what display-size Inter wants. */
-  /* Held to a single line at every width, so the size is driven by the
-     viewport rather than a fixed scale. 3.8vw was the largest coefficient
-     that still cleared the 24px side padding on a 320px phone (measured);
-     3.4vw sits under that with room to spare. It caps at 52px so the line
-     stops
-     growing on wide monitors. The cost is a small headline on a narrow
-     phone — that is the trade for never wrapping. */
-  font-size: clamp(12px, 3.4vw, 52px);
-  font-weight: 400;
+  font-size: clamp(12px, 3vw, 46px);
+  font-weight: 700;
+  font-style: italic;
   line-height: 1.16;
   letter-spacing: -0.02em;
   color: var(--on-dark);
@@ -845,7 +845,6 @@ button[type="submit"]:disabled {
   }
 
   .home-logo {
-    font-size: 14px;
     letter-spacing: 0.06em;
   }
 
@@ -1190,11 +1189,45 @@ button[type="submit"]:disabled {
   }
 
   .hero-title {
-    font-size: clamp(12px, 4vw, 30px);
+    font-size: clamp(12px, 3.6vw, 30px);
+  }
+
+  .home-logo {
+    font-size: 15px;
   }
 
   .home .cta-row {
     margin-top: 46px;
+  }
+}
+
+/* Narrow phones: the wordmark plus three links stopped fitting the bar —
+   at 320px the row ran 22px past the viewport edge and clipped "Tools".
+   Pulls in the bar's own inset, its gap, and the links' horizontal padding,
+   which together buy back about 45px without dropping anything from the
+   nav. */
+@media (max-width: 380px) {
+  .topbar {
+    left: 14px;
+    right: 14px;
+    gap: 8px;
+  }
+
+  .home-logo {
+    font-size: 13.5px;
+    letter-spacing: 0.04em;
+  }
+
+  .rail {
+    font-size: 13px;
+  }
+
+  .rail a {
+    padding: 10px 7px;
+  }
+
+  .rail ul {
+    margin-right: -7px;
   }
 }
 
