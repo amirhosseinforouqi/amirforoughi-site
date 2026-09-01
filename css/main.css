@@ -1178,6 +1178,26 @@ button[type="submit"]:disabled {
   }
 }
 
+/* Phones only — tablets keep the sizing above. The headline has to stay on
+   one line, so the room for a larger size is bought by narrowing the side
+   padding: at 24px the line tops out around 3.9vw on a 320px screen, at
+   14px it reaches 4.14vw (both measured). 4.0vw sits under that everywhere
+   from 320px up while reading noticeably larger than the shared 3.4vw. */
+@media (max-width: 600px) {
+  .hsec {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .hero-title {
+    font-size: clamp(12px, 4vw, 30px);
+  }
+
+  .home .cta-row {
+    margin-top: 46px;
+  }
+}
+
 /* ==========================================================================
    Splash intro (once per session — js/intro-splash.js)
    ========================================================================== */
