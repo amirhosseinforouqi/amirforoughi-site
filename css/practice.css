@@ -1,4 +1,19 @@
 .about-redesign{--deep:#123b40;--copper:#8f6347}
+.interior-navigation{background:#fbfaf7!important;border-bottom:1px solid #173b3f20;box-shadow:0 4px 18px #173b3f08}
+.interior-brand-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px clamp(20px,5vw,70px) 16px}
+.interior-logo{font:400 30px/1.2 Georgia,serif;letter-spacing:.045em;color:#173b3f;text-decoration:none;white-space:nowrap}
+.interior-logo span{font-size:.8em;letter-spacing:0}
+.interior-call{display:inline-flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid #b9c9c4;color:#173b3f;font-size:14px;text-decoration:none;border-radius:4px}
+.interior-links{display:flex;align-items:center;gap:36px;padding:0 clamp(20px,5vw,70px);min-height:48px}
+.interior-links>a,.interior-links>button{display:inline-flex;align-items:center;gap:7px;min-height:48px;font:500 14px/1.2 Inter,Arial,sans-serif;color:#405552;background:none;border:0;text-decoration:none;padding:0;position:relative}
+.interior-links [aria-current="page"],.interior-links [aria-expanded="true"]{color:#795238}
+.interior-links [aria-current="page"]:after,.interior-links [aria-expanded="true"]:after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:#916849}
+.interior-navigation .nav-reveal-scroll{padding:26px clamp(20px,5vw,70px);max-height:calc(100dvh - 132px);overflow-y:auto;overscroll-behavior:contain}
+.interior-navigation .nav-reveal-cols{display:grid;grid-template-columns:1fr 1.4fr 1.6fr;gap:32px}
+.interior-navigation .nav-reveal-head{font-size:11px;letter-spacing:.16em;color:#916849;margin-bottom:12px}
+.interior-navigation .nav-reveal-list a{display:block;font-size:16px;line-height:1.4;min-height:44px;padding:11px 0;color:#173b3f}
+.interior-navigation :focus-visible{outline:2px solid #916849;outline-offset:4px}
+@media(max-width:640px){.interior-brand-row{padding:15px 20px 10px}.interior-logo{font-size:25px;letter-spacing:.025em}.interior-call{font-size:12px;padding:9px 11px;min-height:40px}.interior-links{justify-content:space-between;gap:12px;padding:0 20px;min-height:46px}.interior-links>a,.interior-links>button{font-size:13px;min-height:46px}.interior-navigation .nav-reveal-scroll{padding:20px;max-height:calc(100dvh - 112px)}.interior-navigation .nav-reveal-cols{grid-template-columns:1fr;gap:22px}.interior-navigation .nav-reveal-list a{font-size:16px;padding:10px 0}.interior-navigation .nav-reveal-head{margin-bottom:6px}}
 /* Service pages retain their existing video and photography. */
 .svc-page{--ink:#17383c;--ink-2:#425456;--paper:#fff;--paper-2:#f2f3ef;--accent:#916849;--accent-deep:#795238;--line:#dce2dd;--teal-deep:#173e43;--sec-y:clamp(64px,8vw,110px)}
 .svc-page main h1,.svc-page main h2{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.035em}
