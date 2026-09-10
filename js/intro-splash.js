@@ -1,6 +1,6 @@
-/* Splash intro — plays once per session (sessionStorage), skipped entirely
-   for visits with UTM/ad-campaign query parameters and for reduced-motion
-   users. The head gate script has already classed <html> with either
+/* Splash intro — plays on fresh arrivals, including social campaign links.
+   Internal return visits and reduced-motion users skip the animation.
+   The head gate script has already classed <html> with either
    "no-splash" (skip) or "intro-lock" (scroll locked, play). Sequence:
    the media rapidly flashes through a stack of images while the "Foroughi
    Mortgage" wordmark eases in and then holds locked on top; on the curtain
@@ -24,10 +24,6 @@
     finish();
     return;
   }
-
-  try {
-    sessionStorage.setItem("fmIntroSeen", "1");
-  } catch (e) { /* private mode — intro simply replays next visit */ }
 
   var logo = splash.querySelector(".splash-logo");
   var slides = Array.prototype.slice.call(splash.querySelectorAll(".splash-slide"));
