@@ -1,0 +1,332 @@
+{
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "retrieved": "2026-09-08",
+  "note": "Decorative stock media. Depicted people are not represented as company staff or clients; generic properties are not represented as Canadian listings.",
+  "videos": [
+    {
+      "key": "refinance",
+      "page": "mortgages/refinance.html",
+      "video": "https://videos.pexels.com/video-files/5500754/5500754-uhd_4096_2160_24fps.mp4",
+      "source": "https://www.pexels.com/video/a-couple-renovating-their-home-5500754/",
+      "creator": "Anastasia Shuraeva",
+      "alt": "A couple working together on a home renovation"
+    },
+    {
+      "key": "pre-qualify",
+      "page": "mortgages/pre-qualify.html",
+      "video": "https://videos.pexels.com/video-files/7821801/7821801-hd_1920_1080_30fps.mp4",
+      "source": "https://www.pexels.com/video/a-man-using-a-calculator-at-work-7821801/",
+      "creator": "RDNE Stock project",
+      "alt": "Reviewing financial documents with a calculator"
+    },
+    {
+      "key": "complex-mortgages",
+      "page": "mortgages/complex-mortgages.html",
+      "video": "https://videos.pexels.com/video-files/7821854/7821854-hd_1920_1080_30fps.mp4",
+      "source": "https://www.pexels.com/video/a-person-explaining-a-document-7821854/",
+      "creator": "RDNE Stock project",
+      "alt": "Advisers working through financial documents together"
+    },
+    {
+      "key": "pre-payment-penalties",
+      "page": "blog/pre-payment-penalties.html",
+      "video": "https://videos.pexels.com/video-files/8298010/8298010-hd_1920_1080_25fps.mp4",
+      "source": "https://www.pexels.com/video/a-woman-using-calculator-8298010/",
+      "creator": "Mikhail Nilov",
+      "alt": "Calculating costs from financial documents"
+    },
+    {
+      "key": "private-lending",
+      "page": "mortgages/private-lending.html",
+      "video": "https://videos.pexels.com/video-files/7646693/7646693-uhd_3840_2160_25fps.mp4",
+      "source": "https://www.pexels.com/video/people-looking-at-documents-7646693/",
+      "creator": "Alena Darmel",
+      "alt": "A couple reviewing property documents with an adviser"
+    },
+    {
+      "key": "self-employed",
+      "page": "mortgages/self-employed.html",
+      "video": "https://videos.pexels.com/video-files/7287763/7287763-uhd_3840_2160_25fps.mp4",
+      "source": "https://www.pexels.com/video/couple-busy-with-their-business-7287763/",
+      "alt": "Business owners packing customer orders"
+    },
+    {
+      "key": "pre-construction",
+      "page": "mortgages/pre-construction.html",
+      "video": "https://videos.pexels.com/video-files/5594430/5594430-uhd_3840_2160_25fps.mp4",
+      "source": "https://www.pexels.com/video/people-working-on-construction-site-5594430/",
+      "alt": "Construction workers and equipment at a building site"
+    },
+    {
+      "key": "investment-properties",
+      "page": "mortgages/investment-properties.html",
+      "video": "https://videos.pexels.com/video-files/4770824/4770824-uhd_4096_2160_24fps.mp4",
+      "source": "https://www.pexels.com/video/apartment-buildings-in-an-urban-city-4770824/",
+      "alt": "Apartment buildings in an urban neighbourhood"
+    },
+    {
+      "key": "reverse-mortgage",
+      "page": "mortgages/reverse-mortgage.html",
+      "video": "https://videos.pexels.com/video-files/8779766/8779766-uhd_4096_2160_25fps.mp4",
+      "source": "https://www.pexels.com/video/an-elderly-couple-discussing-something-while-using-laptop-8779766/",
+      "alt": "Older couple using a laptop together at home"
+    },
+    {
+      "key": "newcomers-to-canada",
+      "page": "mortgages/newcomers-to-canada.html",
+      "video": "https://videos.pexels.com/video-files/5099909/5099909-uhd_3840_2160_30fps.mp4",
+      "source": "https://www.pexels.com/video/a-couple-holding-a-moving-boxes-5099909/",
+      "alt": "A couple unpacking moving boxes in their home"
+    },
+    {
+      "key": "business-commercial",
+      "page": "mortgages/business-commercial.html",
+      "video": "https://videos.pexels.com/video-files/15191885/15191885-uhd_2560_1440_30fps.mp4",
+      "source": "https://www.pexels.com/video/drone-flying-outside-an-office-building-15191885/",
+      "alt": "Modern office building exterior"
+    }
+  ],
+  "photos": [
+    {
+      "key": "keys",
+      "id": "36729704",
+      "alt": "Couple holding house keys beside moving boxes in their new home",
+      "source": "https://www.pexels.com/photo/36729704/"
+    },
+    {
+      "key": "moving",
+      "id": "8962253",
+      "alt": "Couple carrying cardboard boxes into a house",
+      "source": "https://www.pexels.com/photo/8962253/"
+    },
+    {
+      "key": "renovation",
+      "id": "30924413",
+      "alt": "Kitchen extension under renovation with tools and building materials",
+      "source": "https://www.pexels.com/photo/30924413/"
+    },
+    {
+      "key": "construction",
+      "id": "8830259",
+      "alt": "Interior of a timber house frame under construction",
+      "source": "https://www.pexels.com/photo/8830259/"
+    },
+    {
+      "key": "apartments",
+      "id": "17497274",
+      "alt": "Contemporary apartment building with balconies and large windows",
+      "source": "https://www.pexels.com/photo/17497274/"
+    },
+    {
+      "key": "cottage",
+      "id": "1131573",
+      "alt": "Brick cottage surrounded by a green garden",
+      "source": "https://www.pexels.com/photo/1131573/"
+    },
+    {
+      "key": "retirement",
+      "id": "7545209",
+      "alt": "Older couple embracing on a sofa in their living room",
+      "source": "https://www.pexels.com/photo/7545209/"
+    },
+    {
+      "key": "shop-owner",
+      "id": "36753978",
+      "alt": "Shop owner standing beside his storefront",
+      "source": "https://www.pexels.com/photo/36753978/"
+    },
+    {
+      "key": "paperwork",
+      "id": "8297220",
+      "alt": "Reviewing paperwork with a calculator at a desk",
+      "source": "https://www.pexels.com/photo/8297220/"
+    },
+    {
+      "key": "consultation",
+      "id": "36729962",
+      "alt": "Couple discussing documents with an adviser in an office",
+      "source": "https://www.pexels.com/photo/36729962/"
+    },
+    {
+      "key": "family",
+      "id": "7983871",
+      "alt": "Family sitting together on a sofa in a bright living room",
+      "source": "https://www.pexels.com/photo/7983871/"
+    },
+    {
+      "key": "moving-boxes",
+      "id": "4246119",
+      "alt": "Packed moving boxes in a bright room before relocation",
+      "source": "https://www.pexels.com/photo/4246119/"
+    },
+    {
+      "key": "case-planning",
+      "id": "5816300",
+      "alt": "Two professionals discussing a document at a desk",
+      "source": "https://www.pexels.com/photo/5816300/"
+    },
+    {
+      "key": "financial-review",
+      "id": "7109240",
+      "alt": "Two people reviewing financial documents together",
+      "source": "https://www.pexels.com/photo/7109240/"
+    },
+    {
+      "key": "commercial-meeting",
+      "id": "7433874",
+      "alt": "Business partners reviewing documents in an office meeting",
+      "source": "https://www.pexels.com/photo/7433874/"
+    },
+    {
+      "key": "signing-agreement",
+      "id": "8730987",
+      "alt": "A hand signing a document with a pen",
+      "source": "https://www.pexels.com/photo/8730987/"
+    },
+    {
+      "key": "closing-paperwork",
+      "id": "8815849",
+      "alt": "Signing business documents at a desk",
+      "source": "https://www.pexels.com/photo/8815849/"
+    },
+    {
+      "key": "adviser-meeting-one",
+      "id": 5816296,
+      "alt": "Business adviser and clients discussing documents at an office meeting",
+      "source": "https://www.pexels.com/photo/5816296/"
+    },
+    {
+      "key": "adviser-meeting-two",
+      "id": 7731323,
+      "alt": "Couple reviewing financial documents with an adviser",
+      "source": "https://www.pexels.com/photo/7731323/"
+    },
+    {
+      "key": "document-signature",
+      "id": 9068372,
+      "alt": "A person in a grey suit signing paperwork with a black pen",
+      "source": "https://www.pexels.com/photo/9068372/"
+    },
+    {
+      "key": "clipboard-review",
+      "id": 7641994,
+      "alt": "Two professionals completing a document on a clipboard",
+      "source": "https://www.pexels.com/photo/7641994/"
+    },
+    {
+      "key": "contact-phone",
+      "id": 4526469,
+      "alt": "Smartphone standing upright on a desk beneath a lamp",
+      "source": "https://www.pexels.com/photo/4526469/"
+    },
+    {
+      "key": "office-workstation",
+      "id": 8297861,
+      "alt": "Office workstation with a computer, notebook and plant",
+      "source": "https://www.pexels.com/photo/8297861/"
+    },
+    {
+      "key": "business-laptop",
+      "id": 13374597,
+      "alt": "Businesswoman working at a desk with a laptop",
+      "source": "https://www.pexels.com/photo/13374597/"
+    },
+    {
+      "key": "income-reports",
+      "id": 7108131,
+      "alt": "Financial reports beside a laptop displaying charts",
+      "source": "https://www.pexels.com/photo/7108131/"
+    },
+    {
+      "key": "key-handover",
+      "id": 8482876,
+      "alt": "Hands exchanging house keys in front of a sold sign",
+      "source": "https://www.pexels.com/photo/8482876/"
+    },
+    {
+      "key": "callback-notes",
+      "id": 9040556,
+      "alt": "Taking notes beside a laptop at a desk",
+      "source": "https://www.pexels.com/photo/9040556/"
+    },
+    {
+      "key": "finished-kitchen",
+      "id": 15062162,
+      "alt": "Finished kitchen with white cabinets and stainless steel appliances",
+      "source": "https://www.pexels.com/photo/15062162/"
+    }
+  ],
+  "placements": {
+    "mortgages/business-commercial.html": [
+      "commercial-meeting"
+    ],
+    "mortgages/complex-mortgages.html": [
+      "case-planning",
+      "financial-review"
+    ],
+    "mortgages/first-time-home-buyer.html": [
+      "paperwork",
+      "keys"
+    ],
+    "mortgages/investment-properties.html": [
+      "apartments",
+      "cottage"
+    ],
+    "mortgages/moving-up.html": [
+      "moving-boxes",
+      "finished-kitchen"
+    ],
+    "mortgages/newcomers-to-canada.html": [
+      "family",
+      "key-handover"
+    ],
+    "mortgages/pre-construction.html": [
+      "construction"
+    ],
+    "mortgages/pre-qualify.html": [
+      "adviser-meeting-one",
+      "income-reports"
+    ],
+    "mortgages/private-lending.html": [
+      "signing-agreement",
+      "closing-paperwork"
+    ],
+    "mortgages/refinance.html": [
+      "consultation",
+      "renovation"
+    ],
+    "mortgages/renewals-and-switches.html": [
+      "adviser-meeting-two",
+      "document-signature"
+    ],
+    "mortgages/reverse-mortgage.html": [
+      "retirement",
+      "reverse-mortgage-poster"
+    ],
+    "mortgages/self-employed.html": [
+      "shop-owner",
+      "business-laptop"
+    ],
+    "about.html": [
+      "office-workstation",
+      "clipboard-review"
+    ],
+    "contact.html": [
+      "contact-phone",
+      "callback-notes"
+    ]
+  },
+  "videoOverrides": {
+    "mortgages/business-commercial.html": {
+      "file": "commercial-warehouse.mp4",
+      "poster": "commercial-warehouse-poster.jpg",
+      "source": "https://www.pexels.com/video/men-working-in-a-warehouse-4281405/"
+    },
+    "mortgages/moving-up.html": {
+      "file": "moving-upstairs.mp4",
+      "poster": "moving-upstairs-poster.jpg",
+      "source": "https://www.pexels.com/video/a-couple-carrying-boxes-moving-in-to-their-new-home-4277738/"
+    }
+  }
+}

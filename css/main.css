@@ -1358,3 +1358,79 @@ html.no-splash #intro-splash {
 .rail .has-sub > a {
   cursor: pointer;
 }
+
+/* Editorial home cover: live Toronto footage with a readable tonal wash. */
+.home .hero-media .scrim {
+  background: linear-gradient(90deg, rgba(7,18,29,.68), rgba(7,18,29,.34) 58%, rgba(7,18,29,.12)),
+    linear-gradient(180deg, rgba(7,18,29,.08) 15%, rgba(7,18,29,.18) 50%, rgba(7,18,29,.66));
+}
+.home .hsec {
+  min-height: 100svh;
+  justify-content: flex-start;
+  padding: 160px clamp(24px, 5.3vw, 84px) 150px;
+}
+.home .hsec-copy { width: min(100%, 1000px); text-align: left; }
+.home .hero-eyebrow {
+  margin: 0 0 26px; color: #ddb18a; font-size: 14px; font-weight: 600;
+  letter-spacing: .19em; text-transform: uppercase;
+}
+.home .hero-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(38px, 6.4vw, 92px); font-style: normal; font-weight: 400;
+  line-height: 1.06; letter-spacing: -.035em; white-space: normal;
+  color: #fffaf3; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,.2);
+}
+.home .hero-description {
+  margin: 28px 0 0; font-size: clamp(18px, 2vw, 25px); line-height: 1.48;
+  color: #fffaf3; max-width: 560px;
+}
+.home .cta-row { justify-content: flex-start; margin-top: 34px; }
+.home .hero-callback {
+  display: inline-flex; align-items: center; gap: 28px;
+  background: #946237; border: 1px solid #bb8a5b; border-radius: 6px;
+  font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px, 2vw, 27px);
+  padding: 18px 28px; color: #fffaf3;
+}
+.home .hero-callback:hover { background: #7b502c; }
+.home .hero-callback span { font-family: Arial, sans-serif; }
+.home .hero-explore {
+  display: inline-block; margin-top: 24px; padding: 4px 0;
+  background: transparent; color: #fffaf3; font-size: 16px;
+  border: 0; border-bottom: 1px solid rgba(255,250,243,.65); border-radius: 0;
+}
+.home .hero-explore:hover { color: #ddb18a; }
+.home .strip {
+  position: absolute; top: max(calc(100svh - 98px), 642px); bottom: auto;
+  left: clamp(24px, 5.3vw, 84px); right: 24px;
+}
+.hero-signature p { margin: 0; font: 19px/1.5 Georgia, 'Times New Roman', serif; }
+.hero-signature .hero-region { margin-top: 4px; font: 14px/1.5 var(--font); color: #ded9d2; }
+@media (max-width: 600px) {
+  .home .hsec { min-height: 100svh; padding: 110px 24px 35px; }
+  .home .hero-title { font-size: clamp(34px, 7.4vw, 44px); }
+  .home .hero-eyebrow { font-size: 12px; letter-spacing: .14em; margin-bottom: 22px; }
+  .home .hero-description { font-size: 18px; margin-top: 24px; }
+  .home .cta-row { margin-top: 28px; }
+  .home .hero-callback { padding: 16px 22px; gap: 20px; }
+  .home .strip { top: max(calc(100svh - 95px), 625px); }
+  .hero-signature p { font-size: 16px; }
+}
+
+/* The homepage is one viewport; dialogs retain their own scrolling. */
+.home .hsec { min-height:100svh; min-height:100dvh; padding-block:clamp(90px,16dvh,150px) 30px; justify-content:center; }
+@media(max-height:750px){
+  .home .hero-title{font-size:clamp(32px,7dvh,64px)}
+  .home .hero-eyebrow{margin-bottom:14px}
+  .home .hero-description{font-size:18px;margin-top:16px}
+  .home .cta-row{margin-top:20px}
+  .home .hero-callback{font-size:20px;padding:12px 22px}
+  .home .hero-explore{margin-top:14px}
+}
+@media(max-height:480px) and (min-width:650px){
+  .home .hsec{padding-top:80px;padding-bottom:16px}
+  .home .hsec-copy{display:grid;grid-template-columns:1.2fr 1fr;gap:12px 30px;align-items:center}
+  .home .hero-eyebrow{grid-column:1/-1;margin:0}
+  .home .hero-title{grid-column:1;grid-row:2/5;font-size:clamp(30px,8dvh,40px)}
+  .home .hero-description,.home .cta-row,.home .hero-explore{grid-column:2;margin:0}
+  .home .hero-description{font-size:16px}
+}
