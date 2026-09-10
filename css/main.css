@@ -1416,8 +1416,15 @@ html.no-splash #intro-splash {
   .hero-signature p { font-size: 16px; }
 }
 
+/* Compact office address stays within the homepage viewport. */
+.home-address{position:fixed;bottom:0;left:0;right:0;z-index:5;padding:16px clamp(24px,5.3vw,84px) calc(16px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(8,25,28,.8));color:#fffaf3}
+.home-address address{font-style:normal;font-size:14px;line-height:1.6}
+.home-address a{display:inline-flex;gap:8px 20px;flex-wrap:wrap;color:inherit;text-decoration:none}
+.home-address a:hover{text-decoration:underline;text-underline-offset:4px}
+html.intro-lock .home-address{visibility:hidden}
+@media(max-width:600px){.home-address a{display:flex;flex-direction:column;gap:0}.home-address{padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}}
 /* The homepage is one viewport; dialogs retain their own scrolling. */
-.home .hsec { min-height:100svh; min-height:100dvh; padding-block:clamp(90px,16dvh,150px) 30px; justify-content:center; }
+.home .hsec { min-height:100svh; min-height:100dvh; padding-block:clamp(90px,16dvh,150px) calc(90px + env(safe-area-inset-bottom)); justify-content:center; }
 @media(max-height:750px){
   .home .hero-title{font-size:clamp(32px,7dvh,64px)}
   .home .hero-eyebrow{margin-bottom:14px}
@@ -1427,7 +1434,7 @@ html.no-splash #intro-splash {
   .home .hero-explore{margin-top:14px}
 }
 @media(max-height:480px) and (min-width:650px){
-  .home .hsec{padding-top:80px;padding-bottom:16px}
+  .home .hsec{padding-top:80px;padding-bottom:64px}
   .home .hsec-copy{display:grid;grid-template-columns:1.2fr 1fr;gap:12px 30px;align-items:center}
   .home .hero-eyebrow{grid-column:1/-1;margin:0}
   .home .hero-title{grid-column:1;grid-row:2/5;font-size:clamp(30px,8dvh,40px)}
