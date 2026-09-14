@@ -1,4 +1,6 @@
 .about-redesign{--deep:#123b40;--copper:#8f6347}
+/* Preserve the original brand typeface independently of page typography. */
+.home .home-logo,.home .home-logo span,.home .splash-wm,.home .splash-sub,.interior-logo,.interior-logo span,.brand-mark,.brand-mark span,.footer-masthead>a:first-child,.footer-masthead>a:first-child span{font-family:"Times New Roman",Times,serif!important}
 .interior-navigation{background:#fbfaf7!important;border-bottom:1px solid #173b3f20;box-shadow:0 4px 18px #173b3f08}
 .interior-brand-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px clamp(20px,5vw,70px) 16px}
 .interior-logo{font:400 30px/1.2 Georgia,serif;letter-spacing:.045em;color:#173b3f;text-decoration:none;white-space:nowrap}
